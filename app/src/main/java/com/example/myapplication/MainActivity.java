@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,12 +34,53 @@ public class MainActivity extends AppCompatActivity {
             if (!checkValues()) {
                 return;
             }
-                }
+            Toast.makeText(this, "Rejestracja OK", Toast.LENGTH_SHORT).show();
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
 
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    // Bardzo podstawowa walidacja
+    private boolean checkValues() {
+        String imie = Imie.getText().toString().trim();
+        String nazwisko = Nazwisko.getText().toString().trim();
+        String email = Email.getText().toString().trim();
+        String haslo = Password.getText().toString().trim();
+
+        if (imie.isEmpty()) {
+            Imie.setError("Wpisz imię");
+            return false;
+        }
+
+        if (nazwisko.isEmpty()) {
+            Nazwisko.setError("Wpisz nazwisko");
+            return false;
+        }
+
+        if (email.isEmpty()) {
+            Email.setError("Wpisz email");
+            return false;
+        }
+
+        if (!email.contains("@")) {
+            Email.setError("Email musi mieć @");
+            return false;
+        }
+
+        if (haslo.isEmpty()) {
+            Password.setError("Wpisz hasło");
+            return false;
+        }
+
+        if (haslo.length() < 6) {
+            Password.setError("Hasło min. 6 znaków");
+            return false;
+        }
+
+        return true;
     }
 }
