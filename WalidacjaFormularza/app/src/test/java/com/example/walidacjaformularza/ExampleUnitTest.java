@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.walidacjaformularza;
 
 import org.junit.Test;
 

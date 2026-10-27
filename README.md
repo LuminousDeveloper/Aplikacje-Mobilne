@@ -5,10 +5,10 @@ Zasada porządkowa: **jeden projekt = jeden katalog** w głównym katalogu repo.
 
 ## 🗂️ Projekty
 
-| # | Projekt | Temat | Główny plik interfejsu |
-|---|---------|-------|------------------------|
-| 1 | [`WalidacjaFormularza/`](WalidacjaFormularza) | Podstawowa aplikacja z walidacją formularza | [`activity_main.xml`](WalidacjaFormularza/app/src/main/res/layout/activity_main.xml) |
-| 2 | [`LosowanieKostek/`](LosowanieKostek) | Interfejs „Losowanie kostek" — czysty XML (logika dopiero na kolejnych zajęciach) | [`activity_main.xml`](LosowanieKostek/app/src/main/res/layout/activity_main.xml) |
+| # | Projekt | Temat | Dokumentacja |
+|---|---------|-------|--------------|
+| 1 | [`WalidacjaFormularza/`](WalidacjaFormularza) | Podstawowa aplikacja z walidacją formularza (Java) | [README](WalidacjaFormularza/README.md) · [layout](WalidacjaFormularza/app/src/main/res/layout/activity_main.xml) |
+| 2 | [`LosowanieKostek/`](LosowanieKostek) | Interfejs „Losowanie kostek" — czysty XML (logika dopiero na kolejnych zajęciach) | [README](LosowanieKostek/README.md) · [layout](LosowanieKostek/app/src/main/res/layout/activity_main.xml) |
 
 ## 🏗️ Struktura repozytorium
 
