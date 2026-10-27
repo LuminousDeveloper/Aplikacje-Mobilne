@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Bardzo podstawowa walidacja
+
     private boolean checkValues() {
         String imie = Imie.getText().toString().trim();
         String nazwisko = Nazwisko.getText().toString().trim();
@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
 
-        if (haslo.length() < 6) {
-            Password.setError("Hasło min. 6 znaków");
+        if (haslo.length() < 8) {
+            Password.setError("Hasło min. 8 znaków");
             return false;
         }
 
