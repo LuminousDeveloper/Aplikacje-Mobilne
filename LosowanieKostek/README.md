@@ -1,7 +1,7 @@
 # 🎲 Losowanie Kostek (Android)
 
 Projekt z przedmiotu **Aplikacje Mobilne**.
-Na tym etapie **tylko interfejs w XML** — logika (losowanie + sortowanie) powstanie na kolejnych zajęciach.
+Interfejs w XML jest połączony z logiką w Javie: aplikacja losuje wyniki kostek i pozwala sortować je rosnąco lub malejąco.
 
 ## Elementy interfejsu ([`activity_main.xml`](app/src/main/res/layout/activity_main.xml))
 
@@ -24,7 +24,7 @@ Na tym etapie **tylko interfejs w XML** — logika (losowanie + sortowanie) pows
 
 ```
 LosowanieKostek/
-├── app/src/main/java/com/example/losowaniekostek/MainActivity.java   ← łączy layout z ekranem (logika zadebiutuje na kolejnych zajęciach)
+├── app/src/main/java/com/example/losowaniekostek/MainActivity.java   ← obsługa losowania i sortowania wyników
 └── app/src/main/res/layout/activity_main.xml                          ← interfejs według specyfikacji zadania
 ```
 
