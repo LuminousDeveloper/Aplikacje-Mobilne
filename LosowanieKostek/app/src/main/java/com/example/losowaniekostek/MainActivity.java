@@ -3,6 +3,7 @@ package com.example.losowaniekostek;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -11,16 +12,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     private final Random random = new Random();
-    private final List<Integer> wyniki = new ArrayList<>();
+    private int[] wyniki = new int[0];
 
     private EditText editTextLiczbaKostek;
     private GridLayout gridKostki;
@@ -39,9 +36,24 @@ public class MainActivity extends AppCompatActivity {
         Button buttonRosnaco = findViewById(R.id.buttonRosnaco);
         Button buttonMalejaco = findViewById(R.id.buttonMalejaco);
 
-        buttonLosuj.setOnClickListener(view -> losujKostki());
-        buttonRosnaco.setOnClickListener(view -> sortujWyniki(true));
-        buttonMalejaco.setOnClickListener(view -> sortujWyniki(false));
+        buttonLosuj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                losujKostki();
+            }
+        });
+        buttonRosnaco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortujWyniki(true);
+            }
+        });
+        buttonMalejaco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortujWyniki(false);
+            }
+        });
     }
 
     private void losujKostki() {
@@ -65,24 +77,32 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        wyniki.clear();
-        for (int numerKostki = 1; numerKostki <= liczbaKostek; numerKostki++) {
-            wyniki.add(random.nextInt(6) + 1);
+        wyniki = new int[liczbaKostek];
+        for (int numerKostki = 0; numerKostki < liczbaKostek; numerKostki++) {
+            wyniki[numerKostki] = random.nextInt(6) + 1;
         }
 
         odswiezWidok();
     }
 
     private void sortujWyniki(boolean rosnaco) {
-        if (wyniki.isEmpty()) {
+        if (wyniki.length == 0) {
             pokazKomunikat("Najpierw wylosuj kostki.");
             return;
         }
 
-        if (rosnaco) {
-            Collections.sort(wyniki);
-        } else {
-            wyniki.sort(Collections.reverseOrder());
+        for (int i = 0; i < wyniki.length - 1; i++) {
+            for (int j = 0; j < wyniki.length - 1 - i; j++) {
+                boolean zamien = rosnaco
+                        ? wyniki[j] > wyniki[j + 1]
+                        : wyniki[j] < wyniki[j + 1];
+
+                if (zamien) {
+                    int tymczasowy = wyniki[j];
+                    wyniki[j] = wyniki[j + 1];
+                    wyniki[j + 1] = tymczasowy;
+                }
+            }
         }
 
         odswiezWidok();
@@ -90,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void odswiezWidok() {
         gridKostki.removeAllViews();
-        gridKostki.setColumnCount(Math.min(3, wyniki.size()));
+        gridKostki.setColumnCount(Math.min(3, wyniki.length));
 
-        for (int i = 0; i < wyniki.size(); i++) {
-            dodajWidokKostki(i + 1, wyniki.get(i));
+        for (int i = 0; i < wyniki.length; i++) {
+            dodajWidokKostki(i + 1, wyniki[i]);
         }
 
         pokazWyniki();
@@ -102,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     private void dodajWidokKostki(int numerKostki, int wynik) {
         TextView kostka = new TextView(this);
         kostka.setGravity(Gravity.CENTER);
-        kostka.setText(String.format(Locale.getDefault(), "Kostka %d\nWynik: %d", numerKostki, wynik));
+        kostka.setText("Kostka " + numerKostki + "\nWynik: " + wynik);
         kostka.setTextColor(Color.BLACK);
         kostka.setTextSize(16);
         kostka.setPadding(16, 16, 16, 16);
@@ -115,11 +135,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void pokazWyniki() {
         StringBuilder tekstWynikow = new StringBuilder();
-        for (int i = 0; i < wyniki.size(); i++) {
+        for (int i = 0; i < wyniki.length; i++) {
             if (i > 0) {
                 tekstWynikow.append(", ");
             }
-            tekstWynikow.append(wyniki.get(i));
+            tekstWynikow.append(wyniki[i]);
         }
         textViewWyniki.setText(tekstWynikow.toString());
     }
